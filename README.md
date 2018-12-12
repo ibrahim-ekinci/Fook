@@ -2,16 +2,17 @@
 This will be a formula hub.
 <br>
 Splash screan <br>
-![Splash](https://i.hizliresim.com/MVEDr6.jpg)
+<img src="https://i.imgyukle.com/2018/12/13/Og6iU.jpg" width="300"/>
 <br>
 Menu screan <br>
-![Menu](https://i.hizliresim.com/9a4NO9.jpg)
+<img src="https://i.imgyukle.com/2018/12/13/OgMm8.jpg"  width="300"/>
 <br>
 Formulas screan <br>
-![Formulas](https://i.hizliresim.com/qdYvr3.jpg)
+<img src="https://i.imgyukle.com/2018/12/13/OgZ6j.jpg" width="300"/>
 <br>
 Dialog Screan <br>
-![Dialog](https://i.hizliresim.com/gr56BL.jpg)
+<img src="https://i.imgyukle.com/2018/12/13/Og4Co.jpg" width="300"/>
 <br>
 Formula creat screan <br>
-![Formula](https://i.hizliresim.com/P1qDgv.jpg)
+<img src="https://i.imgyukle.com/2018/12/13/OgFTn.jpg"  width="300"/>
+
