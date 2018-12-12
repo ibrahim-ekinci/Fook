@@ -1,7 +1,9 @@
 #Fook
-This will be a formula hub.
 <br>
+This will be a formula hub.
+<p align="center">
 Splash screan <br>
+<br>
 <img src="https://i.imgyukle.com/2018/12/13/Og6iU.jpg" width="300"/>
 <br>
 Menu screan <br>
@@ -15,4 +17,4 @@ Dialog Screan <br>
 <br>
 Formula creat screan <br>
 <img src="https://i.imgyukle.com/2018/12/13/OgFTn.jpg"  width="300"/>
-
+</p>
