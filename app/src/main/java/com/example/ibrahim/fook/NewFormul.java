@@ -9,17 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class NewFormul extends AppCompatActivity implements View.OnClickListener {
+public class NewFormul extends AppCompatActivity implements View.OnClickListener,FormulDegerDialog.FormulDegerDialogListener {
     private Button btnDiger,btnUstal,btnDeger,btnBackspace,btnDelete,btnParanez,btnYuzde,btnBol,btnCarp,btnCikar,btnTopla,btnSave,
             btnSifir,btnCiftSifir,btnVirgul,btnBir,btnIki,btnUc,btnDort,btnBes,btnAlti,btnYedi,btnSekiz,btnDokuz;
-    Context dContext;
-    Dialog dDialog;
+
+    private  TextView tv_formul_calc;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_formul);
+
+        tv_formul_calc= findViewById(R.id.tv_fml_calc);
 
         btnDiger= findViewById(R.id.btn_diger);
         btnUstal= findViewById(R.id.btn_ustal);
@@ -126,6 +128,14 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
           myTvv.setText(andDell(myTvv));
        }
     }
+
+    public  void openDegerDialog(){
+
+        FormulDegerDialog formulDegerDialog =new FormulDegerDialog();
+        formulDegerDialog.show(getSupportFragmentManager(),"Değişken Değer");
+    }
+
+
     int pSayac=0;
 
     @Override
@@ -144,7 +154,7 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.btn_deger:
                 //yapılacaklar-----------------------------------------------
-
+                openDegerDialog();
                 break;
             case R.id.btn_backspace:
                 //yapılacaklar
@@ -271,5 +281,10 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
 
 
         }
+    }
+
+    @Override
+    public void applyTexts(String calc) {
+        tv_formul_calc.setText(tv_formul_calc.getText()+"(\"["+calc+"]\")");
     }
 }
