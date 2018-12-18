@@ -1,5 +1,7 @@
 package com.example.ibrahim.fook;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +12,9 @@ import android.widget.TextView;
 public class NewFormul extends AppCompatActivity implements View.OnClickListener {
     private Button btnDiger,btnUstal,btnDeger,btnBackspace,btnDelete,btnParanez,btnYuzde,btnBol,btnCarp,btnCikar,btnTopla,btnSave,
             btnSifir,btnCiftSifir,btnVirgul,btnBir,btnIki,btnUc,btnDort,btnBes,btnAlti,btnYedi,btnSekiz,btnDokuz;
+    Context dContext;
+    Dialog dDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
