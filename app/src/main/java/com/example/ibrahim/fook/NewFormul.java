@@ -134,7 +134,11 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
         FormulDegerDialog formulDegerDialog =new FormulDegerDialog();
         formulDegerDialog.show(getSupportFragmentManager(),"Değişken Değer");
     }
+    public  void openDigerDialog(){
 
+        FormulDegerDialog formulDegerDialog =new FormulDegerDialog();
+        formulDegerDialog.show(getSupportFragmentManager(),"Diğer");
+    }
 
     int pSayac=0;
 
