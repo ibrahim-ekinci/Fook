@@ -9,17 +9,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class NewFormul extends AppCompatActivity implements View.OnClickListener,FormulDegerDialog.FormulDegerDialogListener {
     private Button btnDiger,btnUstal,btnDeger,btnBackspace,btnDelete,btnParanez,btnYuzde,btnBol,btnCarp,btnCikar,btnTopla,btnSave,
             btnSifir,btnCiftSifir,btnVirgul,btnBir,btnIki,btnUc,btnDort,btnBes,btnAlti,btnYedi,btnSekiz,btnDokuz;
 
     private  TextView tv_formul_calc;
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_formul);
+        mAuth = FirebaseAuth.getInstance();
 
         tv_formul_calc= findViewById(R.id.tv_fml_calc);
 
