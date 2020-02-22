@@ -30,18 +30,19 @@
             android:textColor="#fff"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"/>
+
         <Button
             android:id="@+id/dialog_btn_calc"
-            android:padding="20dp"
-            android:textAlignment="textStart"
-            android:drawablePadding="20dp"
-            android:drawableLeft="@drawable/ic_functions_black2_24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:text="Hesaplama Yap"
+            android:layout_gravity="start"
             android:layout_marginTop="10dp"
-            android:layout_gravity="start" />
+            android:background="#fff"
+            android:drawableLeft="@drawable/ic_functions_black2_24dp"
+            android:drawablePadding="20dp"
+            android:padding="20dp"
+            android:text="Hesaplama Yap"
+            android:textAlignment="textStart" />
         <Button
             android:id="@+id/dialog_btn_edit"
             android:drawablePadding="20dp"

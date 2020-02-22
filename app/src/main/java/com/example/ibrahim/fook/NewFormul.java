@@ -7,22 +7,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.UUID;
 
 public class NewFormul extends AppCompatActivity implements View.OnClickListener,FormulDegerDialog.FormulDegerDialogListener {
     private Button btnDiger,btnUstal,btnDeger,btnBackspace,btnDelete,btnParanez,btnYuzde,btnBol,btnCarp,btnCikar,btnTopla,btnSave,
             btnSifir,btnCiftSifir,btnVirgul,btnBir,btnIki,btnUc,btnDort,btnBes,btnAlti,btnYedi,btnSekiz,btnDokuz;
 
     private  TextView tv_formul_calc;
+    private  TextView tv_dialog_formul;
+    private EditText et_dialog_formul_name;
+
+    Dialog addNewDialog;
+
+
     private FirebaseAuth mAuth;
+    FirebaseUser user;
+
+    FirebaseDatabase database;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_formul);
         mAuth = FirebaseAuth.getInstance();
+        user=mAuth.getCurrentUser();
+        database =FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
 
         tv_formul_calc= findViewById(R.id.tv_fml_calc);
 
@@ -81,7 +100,18 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
 
 
     }
+    public void formulEkle(String name,String formul,int photo){
+        user_formul newFormul= new user_formul();
+        newFormul.setName(name);
+        newFormul.setFormul(formul);
+        newFormul.setPhoto(photo);
 
+        UUID uuid =UUID.randomUUID();
+        databaseReference.child("Formuls").child(user.getUid()).child(uuid.toString()).child("formul").setValue(newFormul.getFormul());
+        databaseReference.child("Formuls").child(user.getUid()).child(uuid.toString()).child("name").setValue(newFormul.getName());
+        databaseReference.child("Formuls").child(user.getUid()).child(uuid.toString()).child("photo").setValue(newFormul.getPhoto());
+
+    }
     public boolean opMu(String s){//OPERATÖR KONTROLLERİ BURADA YAPILIYOR.
         char c[] =s.substring(s.length()-1,s.length()).toCharArray();
 
@@ -147,7 +177,7 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        TextView tv_clc =findViewById(R.id.tv_fml_calc);
+        final TextView tv_clc =findViewById(R.id.tv_fml_calc);
         switch (v.getId())
         {
             //tv_clc.setText(tv_clc.getText()+"");
@@ -281,7 +311,35 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.btn_save:
                 //yapılacaklar-----------------------------------
-                virgulsil(tv_clc);
+
+                //FormulAddDialog mydialog = new FormulAddDialog();
+                //mydialog.show(getSupportFragmentManager(),"Formül Kaydet");
+                addNewDialog = new Dialog(NewFormul.this);
+
+                addNewDialog.setContentView(R.layout.dialog_addformul);
+                tv_dialog_formul = addNewDialog.findViewById(R.id.dialog_tv_formul);
+                et_dialog_formul_name=addNewDialog.findViewById(R.id.dialog_et_formul_name);
+                tv_dialog_formul.setText(tv_clc.getText());
+                Button btn_save =addNewDialog.findViewById(R.id.dialog_save_btn);
+                btn_save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        formulEkle(et_dialog_formul_name.getText().toString(),tv_dialog_formul.getText().toString(),R.mipmap.ic_fook);
+                        addNewDialog.cancel();
+                        tv_clc.setText("");
+                    }
+                });
+                Button btn_cancel =addNewDialog.findViewById(R.id.dialog_cancel_btn);
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    addNewDialog.cancel();
+                    }
+                });
+               addNewDialog.show();
+
+
+                //virgulsil(tv_clc);
                 break;
             default:break;
 
@@ -289,6 +347,7 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
 
         }
     }
+
 
     @Override
     public void applyTexts(String calc) {

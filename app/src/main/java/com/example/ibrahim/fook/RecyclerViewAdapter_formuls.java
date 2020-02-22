@@ -51,11 +51,11 @@ public class RecyclerViewAdapter_formuls extends RecyclerView.Adapter<RecyclerVi
                 dialog_name_tv.setText(mData.get(vHolder.getAdapterPosition()).getName());
                 dialog_formul_tv.setText(mData.get(vHolder.getAdapterPosition()).getFormul());
                 dialog_formul_img.setImageResource(mData.get(vHolder.getAdapterPosition()).getPhoto());
-
+                myDialog.show();
 
 
                 Toast.makeText(mContext,"Test click"+String.valueOf(vHolder.getAdapterPosition()),Toast.LENGTH_SHORT).show();
-                myDialog.show();
+
             }
         });
 
