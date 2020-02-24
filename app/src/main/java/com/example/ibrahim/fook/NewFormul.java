@@ -28,6 +28,8 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
     Dialog addNewDialog;
 
 
+
+
     private FirebaseAuth mAuth;
     FirebaseUser user;
 
@@ -311,9 +313,7 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.btn_save:
                 //yapılacaklar-----------------------------------
-
-                //FormulAddDialog mydialog = new FormulAddDialog();
-                //mydialog.show(getSupportFragmentManager(),"Formül Kaydet");
+                virgulsil(tv_clc);
                 addNewDialog = new Dialog(NewFormul.this);
 
                 addNewDialog.setContentView(R.layout.dialog_addformul);
@@ -339,7 +339,7 @@ public class NewFormul extends AppCompatActivity implements View.OnClickListener
                addNewDialog.show();
 
 
-                //virgulsil(tv_clc);
+
                 break;
             default:break;
 
