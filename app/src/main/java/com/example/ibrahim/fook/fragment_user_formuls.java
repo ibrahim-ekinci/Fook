@@ -17,9 +17,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class fragment_user_formuls extends Fragment {
@@ -31,6 +33,7 @@ public class fragment_user_formuls extends Fragment {
     FirebaseUser user;
     FirebaseDatabase database;
     DatabaseReference databaseReference;
+    RecyclerViewAdapter_formuls recyclerAdapter;
     public fragment_user_formuls() {
     }
 
@@ -41,7 +44,7 @@ public class fragment_user_formuls extends Fragment {
 
         v=inflater.inflate(R.layout.user_formuls,container,false);
         myRecylerview=(RecyclerView)v.findViewById(R.id.user_recyclerview);
-        RecyclerViewAdapter_formuls recyclerAdapter = new RecyclerViewAdapter_formuls(getContext(),lstUserFormul);
+        recyclerAdapter = new RecyclerViewAdapter_formuls(getContext(),lstUserFormul);
         myRecylerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         myRecylerview.setAdapter(recyclerAdapter);
 
@@ -61,22 +64,7 @@ public class fragment_user_formuls extends Fragment {
 
        lstUserFormul = new ArrayList<>();
         //lstUserFormul.add(new user_formul("Kare Alanı","a^2",R.drawable.geo));
-       // lstUserFormul.add(new user_formul("Kare Çevresi","a*4",R.drawable.geo));
-       // lstUserFormul.add(new user_formul("Genel Hız Formülü","x/t",R.drawable.fiz));
-        // lstUserFormul.add(new user_formul("İvmeli Hareket Formülü","m*a",R.drawable.fiz));
-       // lstUserFormul.add(new user_formul("Yıllık Faiz Formülü","x/t",R.drawable.mat));
-       // lstUserFormul.add(new user_formul("Aylık Faiz Formülü","x/t",R.drawable.mat));
-       // lstUserFormul.add(new user_formul("Kare Alanı","a^2",R.drawable.geo));
-        //lstUserFormul.add(new user_formul("Kare Çevresi","a*4",R.drawable.geo));
-       // lstUserFormul.add(new user_formul("İvmeli Hareket Formülü","m*a",R.drawable.fiz));
-       // lstUserFormul.add(new user_formul("Yıllık Faiz Formülü","x/t",R.drawable.mat));
-       // lstUserFormul.add(new user_formul("Aylık Faiz Formülü","x/t",R.drawable.mat));
-       // lstUserFormul.add(new user_formul("Kare Alanı","a^2",R.drawable.geo));
-       // lstUserFormul.add(new user_formul("Kare Çevresi","a*4",R.drawable.geo));
-       // lstUserFormul.add(new user_formul("Genel Hız Formülü","x/t",R.drawable.fiz));
-       // lstUserFormul.add(new user_formul("İvmeli Hareket Formülü","m*a",R.drawable.fiz));
-       // lstUserFormul.add(new user_formul("Yıllık Faiz Formülü","x/t",R.drawable.mat));
-       // lstUserFormul.add(new user_formul("Aylık Faiz Formülü","x/t",R.drawable.mat));
+
 
         getData();
 
@@ -84,18 +72,27 @@ public class fragment_user_formuls extends Fragment {
     public void getData(){
         DatabaseReference newReferance =database.getReference("Formuls/"+user.getUid().toString());
 
+        Query query = newReferance.orderByChild("usermessagetime");
         newReferance.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                System.out.println("DataS c"+dataSnapshot.getChildren());
-                System.out.println("DataS v"+dataSnapshot.getValue());
-                System.out.println("DataS k"+dataSnapshot.getKey());
+                for (DataSnapshot ds :dataSnapshot.getChildren()){
+                    System.out.println(ds.getValue());
+                    HashMap<String, Object> result = (HashMap<String, Object>) ds.getValue();
+                    String formul =result.get("formul").toString();
+                    String name = result.get("name").toString();
+                    int photo = Integer.parseInt(result.get("photo").toString());
+
+                    lstUserFormul.add(new user_formul(name,formul,photo));
+                    recyclerAdapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {//data okunamazsa
-
+                System.out.println("Hata");
                 Toast.makeText(getContext(), databaseError.getMessage().toString(),Toast.LENGTH_LONG).show();
             }
         });
